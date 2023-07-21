@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="demo-button-container">
+    <button mat-raised-button (click)="AddDepartment()" class="demo-button">
+      Add Department
+    </button>
+    <button mat-raised-button (click)="addUser()" class="demo-button">
+      Add User
+    </button>
+  </div>
+</div>
+<hr />
+<h2>Department List</h2>
+
+<div style="text-align: center">
+  <mat-form-field appearance="outline" style="width: 50%">
+    <mat-label>Department Filter</mat-label>
+    <mat-select
+      [(value)]="selectedDepartment"
+      (selectionChange)="filterDepartments()"
+    >
+      <mat-option value="all">All Departments</mat-option>
+      <mat-option
+        *ngFor="let department of departments"
+        [value]="department.name"
+      >
+        {{ department.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<mat-accordion *ngIf="selectedDepartment === 'all'">
+  <mat-expansion-panel *ngFor="let department of departments">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ department.name }} ({{ department.users.length }} Users)
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ul>
+      <li *ngFor="let user of department.users">{{ user }}</li>
+    </ul>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-card *ngIf="selectedDepartment !== 'all'" class="department-card">
+  <mat-card-content>
+    <h3>
+      <b>{{ filteredDepartments[0].name }}</b>
+    </h3>
+    <hr />
+    <ul>
+      <li *ngFor="let user of filteredDepartments[0].users">{{ user }}</li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+

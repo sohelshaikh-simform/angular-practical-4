@@ -1,0 +1,22 @@
+<h2>Add Department</h2>
+
+<form (ngSubmit)="onSubmit()" #departmentForm="ngForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Department Name</mat-label>
+    <input
+      type="text"
+      name="departmentName"
+      [(ngModel)]="departmentName"
+      required
+      #departmentNameInput="ngModel"
+      matInput
+    >
+    <mat-error *ngIf="departmentNameInput.invalid && departmentNameInput.touched">
+      Department name is required
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="departmentForm.invalid">
+    Add
+  </button>
+</form>
